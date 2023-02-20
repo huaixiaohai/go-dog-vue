@@ -1,24 +1,29 @@
 <template>
   <div class="login-page">
-    <h1>Login Page</h1>
+    <a-avatar
+      :size="80"
+      src="https://img.qq22.com.cn/uploads/16/3470607325/21960282789253.jpg?14581971"
+    >
+    </a-avatar>
+    <p style="font-size: 20px; margin-top: 30px">Sign in to GODOG</p>
     <form @submit.prevent="submitForm">
       <div>
         <label for="username">Username:</label>
-        <input type="text" id="username" v-model="username" required />
+        <input id="username" v-model="username" required type="text" />
       </div>
       <div>
         <label for="password">Password:</label>
-        <input type="password" id="password" v-model="password" required />
+        <input id="password" v-model="password" required type="password" />
       </div>
       <button type="submit">Login</button>
     </form>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from "vue";
 import { login } from "@/api/login";
-// import { router } from "@/router/index";
+import router from "@/router";
 
 const username = ref("");
 const password = ref("");
@@ -26,10 +31,9 @@ const password = ref("");
 const submitForm = () => {
   console.log("登录中，用户名，密码", username, password);
 
-  login().then((res) => {
-    console.log(res);
+  login().then((data) => {
     // setLocalStorage("LH_TOKEN", res.token);
-    // router.push("/");
+    router.push("/");
   });
 };
 </script>
@@ -40,7 +44,7 @@ const submitForm = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  /*height: 100vh;*/
 }
 
 form {

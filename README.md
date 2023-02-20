@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# go-dog-vue
-vue前端
-=======
 # go-dog
 
 This template should help get you started developing with Vue 3 in Vite.
