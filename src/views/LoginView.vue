@@ -6,17 +6,58 @@
     >
     </a-avatar>
     <p style="font-size: 20px; margin-top: 30px">Sign in to GODOG</p>
-    <form @submit.prevent="submitForm">
-      <div>
-        <label for="username">Username:</label>
-        <input id="username" v-model="username" required type="text" />
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input id="password" v-model="password" required type="password" />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    <div style="background: #eff1f3; border-radius: 5%">
+      <!--      <form @submit.prevent="submitForm">-->
+      <!--        <div>-->
+      <!--          <label for="username">Username:</label>-->
+      <!--          <input id="username" v-model="username" required type="text" />-->
+      <!--        </div>-->
+      <!--        <div>-->
+      <!--          <label for="password">Password:</label>-->
+      <!--          <input id="password" v-model="password" required type="password" />-->
+      <!--        </div>-->
+      <!--        <button type="submit">Login</button>-->
+      <!--      </form>-->
+      <!--    </div>-->
+      <a-form
+        style="
+          margin-top: 30px;
+          margin-left: 10px;
+          margin-right: 10px;
+          width: 300px;
+        "
+      >
+        <a-form-item style="width: 300px">
+          <a-input v-model:value="userInfo.name" placeholder="Username">
+            <template #prefix>
+              <UserOutlined style="color: rgba(0, 0, 0, 0.25)" />
+            </template>
+          </a-input>
+        </a-form-item>
+        <a-form-item style="width: 300px">
+          <a-input
+            v-model:value="userInfo.password"
+            placeholder="Password"
+            type="password"
+          >
+            <template #prefix>
+              <LockOutlined style="color: rgba(0, 0, 0, 0.25)" />
+            </template>
+          </a-input>
+        </a-form-item>
+        <a-form-item style="width: 300px">
+          <a-button
+            style="
+              display: block;
+              margin: 0 auto;
+              width: 300px;
+              border-radius: 5%;
+            "
+            >Sign In
+          </a-button>
+        </a-form-item>
+      </a-form>
+    </div>
   </div>
 </template>
 
@@ -24,12 +65,16 @@
 import { ref } from "vue";
 import { login } from "@/api/login";
 import router from "@/router";
+import { LockOutlined, UserOutlined } from "@ant-design/icons-vue";
 
-const username = ref("");
+const userInfo = {
+  name: "",
+  password: "",
+};
 const password = ref("");
 
 const submitForm = () => {
-  console.log("登录中，用户名，密码", username, password);
+  console.log("登录中，用户名，密码", userInfo);
 
   login().then((data) => {
     // setLocalStorage("LH_TOKEN", res.token);
@@ -43,8 +88,9 @@ const submitForm = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  /*height: 100vh;*/
+  /*justify-content: center;*/
+  height: 100vh;
+  margin-top: 40px;
 }
 
 form {
