@@ -20,21 +20,32 @@
       <!--      </form>-->
       <!--    </div>-->
       <a-form
+        :model="userInfo"
+        name="basic"
         style="
           margin-top: 30px;
           margin-left: 10px;
           margin-right: 10px;
           width: 300px;
         "
+        @submit="onSubmit"
       >
-        <a-form-item style="width: 300px">
+        <a-form-item
+          :rules="[{ required: true, message: 'Please input your username!' }]"
+          name="name"
+          style="width: 300px"
+        >
           <a-input v-model:value="userInfo.name" placeholder="Username">
             <template #prefix>
               <UserOutlined style="color: rgba(0, 0, 0, 0.25)" />
             </template>
           </a-input>
         </a-form-item>
-        <a-form-item style="width: 300px">
+        <a-form-item
+          :rules="[{ required: true, message: 'Please input your password!' }]"
+          name="password"
+          style="width: 300px"
+        >
           <a-input
             v-model:value="userInfo.password"
             placeholder="Password"
@@ -47,12 +58,15 @@
         </a-form-item>
         <a-form-item style="width: 300px">
           <a-button
+            :loading="signing"
+            html-type="submit"
             style="
               display: block;
               margin: 0 auto;
               width: 300px;
               border-radius: 5%;
             "
+            type="primary"
             >Sign In
           </a-button>
         </a-form-item>
@@ -62,23 +76,31 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
 import { login } from "@/api/login";
-import router from "@/router";
 import { LockOutlined, UserOutlined } from "@ant-design/icons-vue";
+import { reactive, ref } from "vue";
+import { LocalStorage } from "@/storage";
 
-const userInfo = {
+interface UserInfo {
+  name: string;
+  password: string;
+}
+
+const userInfo = reactive<UserInfo>({
   name: "",
   password: "",
-};
-const password = ref("");
+});
 
-const submitForm = () => {
-  console.log("登录中，用户名，密码", userInfo);
+const signing = ref<boolean>(false);
 
-  login().then((data) => {
-    // setLocalStorage("LH_TOKEN", res.token);
-    router.push("/");
+const onSubmit = (e: Event) => {
+  if (userInfo.name == "" || userInfo.password == "") {
+    return;
+  }
+  signing.value = true;
+  login({}).then((data) => {
+    signing.value = false;
+    LocalStorage.SetToken(data.data.token);
   });
 };
 </script>

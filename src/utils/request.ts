@@ -3,6 +3,7 @@
  */
 import type { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import axios from "axios";
+import { message } from "ant-design-vue";
 
 // import store from "@/store";
 // // 根据环境不同引入不同api地址
@@ -33,6 +34,7 @@ service.interceptors.request.use(
     // if (store.state.token) {
     // config.headers['Authorization'] = `Bearer ${store.state.token}`
     // }
+    console.log(config, "config");
     return config;
   },
   (error: any) => {
@@ -42,33 +44,9 @@ service.interceptors.request.use(
 // Response interceptors
 service.interceptors.response.use(
   async (response: AxiosResponse) => {
-    // await new Promise(resovle => setTimeout(resovle, 3000))
-    // Toast.clear();
-    const res = response.data;
-    // const res = JSON.parse(response.data);
-    console.log("res", res);
-    console.log("code:", res.code);
-    if (res.code !== 0) {
-      // token 过期
-      if (res.code === 401)
-        // 警告提示窗
-        return;
-      if (res.code == 403) {
-        // Dialog.alert({
-        //   title: "警告",
-        //   message: res.msg,
-        // }).then(() => {});
-        return;
-      }
-      console.log(res);
-      // 若后台返回错误值，此处返回对应错误对象，下面 error 就会接收
-      return Promise.reject(new Error(res.msg || "Error"));
-    }
-    // 注意返回值
-    else return response.data;
+    return response;
   },
   (error: any) => {
-    // Toast.clear();
     if (error && error.response) {
       switch (error.response.status) {
         case 400:
@@ -112,13 +90,13 @@ service.interceptors.response.use(
       }
     } else {
       if (error.message == "Network Error")
-        error.message == "网络异常，请检查后重试！";
+        error.message = "网络异常，请检查后重试！";
       error.message = "连接到服务器失败，请联系管理员";
     }
-    // Toast(error.message);
+    message.error("This is an error message").then();
     // store.auth.clearAuth()
     // store.dispatch("clearAuth")
-    return Promise.reject(error);
+    return;
   }
 );
 export default service;

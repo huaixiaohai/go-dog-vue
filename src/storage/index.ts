@@ -1,4 +1,4 @@
-export const Local = {
+export const LocalStorage = {
   set(key: string, val: any) {
     window.localStorage.setItem(key, JSON.stringify(val));
   },
@@ -12,9 +12,19 @@ export const Local = {
   clear() {
     window.localStorage.clear();
   },
+
+  SetToken(val: any) {
+    this.set("token", val);
+  },
+  GetToken() {
+    return this.get("token");
+  },
+  RemoveToken() {
+    this.remove("token");
+  },
 };
 
-export const Session = {
+export const SessionStorage = {
   // 设置临时缓存
   set(key: string, val: any) {
     window.sessionStorage.setItem(key, JSON.stringify(val));
