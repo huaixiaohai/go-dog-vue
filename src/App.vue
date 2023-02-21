@@ -3,7 +3,10 @@
     <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
       <NavigationComponent></NavigationComponent>
     </a-layout-header>
-    <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
+    <a-layout-content
+      :style="{ padding: '0 50px', marginTop: '64px' }"
+      class="content"
+    >
       <a-breadcrumb :style="{ margin: '16px 0' }">
         <a-breadcrumb-item>Home</a-breadcrumb-item>
         <a-breadcrumb-item>List</a-breadcrumb-item>
@@ -24,3 +27,14 @@
 <script lang="ts" setup>
 import NavigationComponent from "@/components/NavigationComponent.vue";
 </script>
+
+<style>
+.content {
+  background: linear-gradient(
+    71deg,
+    rgb(229, 103, 81) 12%,
+    rgb(169, 81, 116) 40%,
+    rgb(72, 148, 231) 68%
+  );
+}
+</style>
