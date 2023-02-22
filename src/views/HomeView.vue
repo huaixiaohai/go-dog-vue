@@ -5,7 +5,9 @@
     </a-layout-header>
     <a-layout-content class="ant-layout-content">
       <div class="content-bg">
-        <div class="content-panel"></div>
+        <div class="content-panel">
+          <div class="content-app-panel"></div>
+        </div>
       </div>
     </a-layout-content>
     <a-layout-footer
@@ -88,10 +90,21 @@ import NavigationComponent from "@/views/component/NavigationComponent.vue";
 .content-panel {
   width: 80%;
   height: 80%;
-  min-height: 1200px;
+  min-height: 500px;
   background-color: rgba(256, 256, 256, 0.2);
   margin-top: 30px;
   margin-bottom: 30px;
   border-radius: 20px;
+  display: grid;
+}
+
+.content-app-panel {
+  width: 300px;
+  height: fit-content;
+  min-height: 400px;
+  margin-top: 30px;
+  margin-left: 30px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
 }
 </style>
