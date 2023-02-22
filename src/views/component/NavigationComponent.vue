@@ -15,12 +15,14 @@
         mode="horizontal"
         theme="dark"
       >
-        <a-menu-item key="1">nav 1</a-menu-item>
-        <a-menu-item key="2">nav 2</a-menu-item>
-        <a-menu-item key="3">nav 3</a-menu-item>
+        <!--        <a-menu-item key="1">About us</a-menu-item>-->
+        <!--        <a-menu-item key="2">nav 2</a-menu-item>-->
+        <!--        <a-menu-item key="3">nav 3</a-menu-item>-->
       </a-menu>
     </a-col>
-    <a-col :flex="1"><h4 style="color: #f2f2f2">SIGN IN</h4></a-col>
+    <a-col :flex="1">
+      <a-button type="text"><h4 style="color: #f2f2f2">SIGN IN</h4></a-button>
+    </a-col>
     >
     <a-col :flex="1">
       <a-button><h4>SIGN UP</h4></a-button>
